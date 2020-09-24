@@ -3,6 +3,7 @@ defmodule Events.Schema.Event do
 
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, except: [:__meta__]}
   schema "event" do
     field :descp, :string, null: false
     field :type, :string, null: false

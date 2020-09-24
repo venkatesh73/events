@@ -13,4 +13,8 @@ defmodule EventsWeb.ErrorHelpers do
       String.replace(acc, "%{#{key}}", to_string(value))
     end)
   end
+
+  def traverse_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, &translate_error/1)
+  end
 end

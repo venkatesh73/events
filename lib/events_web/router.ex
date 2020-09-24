@@ -14,10 +14,12 @@ defmodule EventsWeb.Router do
   scope "/api", EventsWeb do
     pipe_through :api
 
-    scope "/admin", EventsWeb.AdminController do
+    scope "/admin/event" do
+      get "/", AdminController, :index
+      post "/add", AdminController, :create
     end
 
-    scope "/v1", EventsWeb.UserController do
+    scope "/v1/event", EventsWeb.UserController do
     end
   end
 end
