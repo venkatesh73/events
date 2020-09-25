@@ -2,6 +2,6 @@ defmodule EventsWeb.AdminView do
   use EventsWeb, :view
 
   def render("index.json", %{"data" => data}) do
-  	data
+    data
   end
 end

@@ -26,7 +26,7 @@ defmodule Events.EventsTest do
       event = %{event | duration: 09}
       changeset = Event.changeset(%Event{}, event)
 
-      {msg, _ } = Keyword.get(changeset.errors, :duration)
+      {msg, _} = Keyword.get(changeset.errors, :duration)
       assert msg == "must be greater than or equal to %{number}"
 
       refute changeset.valid?
@@ -36,7 +36,7 @@ defmodule Events.EventsTest do
       event = %{event | date: DateTime.utc_now()}
       changeset = Event.changeset(%Event{}, event)
 
-      {msg, _ } = Keyword.get(changeset.errors, :date)
+      {msg, _} = Keyword.get(changeset.errors, :date)
       assert msg == "Host date should be a future date."
       refute changeset.valid?
     end

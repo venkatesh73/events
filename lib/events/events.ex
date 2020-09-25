@@ -1,7 +1,6 @@
 defmodule Events.Events do
-
   import Ecto.Query
-  
+
   alias Events.Repo
   alias Events.Schema.Event
 
@@ -9,6 +8,7 @@ defmodule Events.Events do
     case Repo.insert(Event.changeset(%Event{}, params)) do
       {:ok, _} ->
         {:ok}
+
       {:error, changeset} ->
         {:error, changeset}
     end

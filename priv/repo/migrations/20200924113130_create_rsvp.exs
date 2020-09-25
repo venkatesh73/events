@@ -7,7 +7,7 @@ defmodule Events.Repo.Migrations.CreateRsvp do
       add :is_confirmed, :boolean, default: false
       add :is_going, :boolean, default: false
       add :event_id, references("event")
-      
+
       timestamps()
     end
 
