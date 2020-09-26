@@ -27,3 +27,5 @@ export TEST_DB_HOSTNAME=HOST
   ```
 
   * before starting the server run source .env (you have to run this everytime on new tabs)
+  
+  *  [POSTMAN COLLECTION](https://raw.githubusercontent.com/venkatesh73/events/master/Events.postman_collection.json)
