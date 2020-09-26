@@ -26,6 +26,9 @@ defmodule EventsWeb.Router do
 
       get "/counts/:event_id", AdminController, :rsvp_event_counts
       get "/cancelled-counts/:event_id", AdminController, :cancelled_event_counts
+
+      put "/approve-user-rsvp/:rsvp_id", AdminController, :confirm_attendees
+      put "/cancel-user-rsvp/:rsvp_id", AdminController, :cancel_attendees
     end
 
     scope "/v1/event" do

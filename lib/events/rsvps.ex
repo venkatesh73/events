@@ -55,8 +55,7 @@ defmodule Events.Rsvps do
   end
 
   def confirm(rsvp_id) do
-    query = from rsvp in Rsvp, where: [id: ^id, is_going: true]
-    rsvp = Repo.get(query)
+    rsvp = Repo.get_by(Rsvp, id: rsvp_id, is_going: true)
 
     if rsvp do
       rsvp
@@ -70,8 +69,7 @@ defmodule Events.Rsvps do
   end
 
   def remove(rsvp_id) do
-    query = from rsvp in Rsvp, where: [id: ^id, is_confirmed: true]
-    rsvp = Repo.get(query)
+    rsvp = Repo.get_by(Rsvp, id: rsvp_id, is_confirmed: true)
 
     if rsvp do
       rsvp
