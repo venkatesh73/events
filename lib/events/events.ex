@@ -14,10 +14,19 @@ defmodule Events.Events do
     end
   end
 
-  def update(params) do
+  def update(%{"id" => id} = params) do
+    event = get(id)
+
+    event
+    |> Event.changeset(params)
+    |> Repo.update()
   end
 
   def delete(id) do
+    event = get(id)
+
+    event
+    |> Repo.delete()
   end
 
   def list() do
@@ -25,5 +34,6 @@ defmodule Events.Events do
   end
 
   def get(id) do
+    Repo.get(Event, id)
   end
 end

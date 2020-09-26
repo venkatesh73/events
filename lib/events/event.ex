@@ -12,7 +12,7 @@ defmodule Events.Schema.Event do
     field :host, :string, null: false
     field :location, :string, null: false
 
-    has_many :rsvp, Events.Schema.Rsvp
+    has_many :rsvp, Events.Schema.Rsvp, on_delete: :delete_all
 
     timestamps()
   end

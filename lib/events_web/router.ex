@@ -18,6 +18,14 @@ defmodule EventsWeb.Router do
       get "/", AdminController, :index
 
       post "/add", AdminController, :create
+      put "/update/:id", AdminController, :update
+      delete "/delete/:id", AdminController, :delete
+
+      get "/counts", AdminController, :rsvp_counts
+      get "/cancelled-counts", AdminController, :cancelled_counts
+
+      get "/counts/:event_id", AdminController, :rsvp_event_counts
+      get "/cancelled-counts/:event_id", AdminController, :cancelled_event_counts
     end
 
     scope "/v1/event" do

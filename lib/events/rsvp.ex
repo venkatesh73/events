@@ -8,6 +8,7 @@ defmodule Events.Schema.Rsvp do
     field :user_mail, :string, null: false
     field :is_confirmed, :boolean, default: false
     field :is_going, :boolean, default: true
+    field :is_cancelled, :boolean, default: false
 
     belongs_to :event, Events.Schema.Event
 

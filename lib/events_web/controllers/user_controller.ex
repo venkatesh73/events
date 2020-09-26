@@ -1,7 +1,7 @@
 defmodule EventsWeb.UserController do
   use EventsWeb, :controller
 
-  alias Events.Rsvps
+  alias Events.{Rsvps, Events}
   alias EventsWeb.ErrorHelpers
 
   def index(conn, %{"email" => email}) do
@@ -31,15 +31,24 @@ defmodule EventsWeb.UserController do
   def cancel(conn, %{"user_event_id" => user_event_id}) do
     data =
       case Rsvps.cancel(user_event_id) do
-        _ ->
-          nil
+        {:ok} ->
+          %{
+            "status" => true,
+            "message" => "Successfully cancelled event."
+          }
+
+        {:error, message} ->
+          %{
+            "status" => false,
+            "message" => message
+          }
       end
 
     render(conn, "index.json", %{"data" => data})
   end
 
   def events(conn, params) do
-    data = nil
+    data = Events.list()
     render(conn, "index.json", %{"data" => data})
   end
 end

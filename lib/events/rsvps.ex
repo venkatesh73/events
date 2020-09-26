@@ -2,7 +2,6 @@ defmodule Events.Rsvps do
   import Ecto.Query
 
   alias Events.Repo
-  alias Events.Schema.Event
   alias Events.Schema.Rsvp
 
   def add(params) do
@@ -16,8 +15,72 @@ defmodule Events.Rsvps do
   def cancel(user_event_id) do
     user_event = Repo.get(Rsvp, user_event_id)
 
-    user_event
-    |> Rsvp.changeset(%{is_going: false})
-    |> Repo.update!()
+    if user_event do
+      user_event
+      |> Rsvp.changeset(%{is_going: false})
+      |> Repo.update!()
+
+      {:ok}
+    else
+      {:error, "Event doesn't exisits."}
+    end
+  end
+
+  def counts(:rsvp) do
+    query = from rsvp in Rsvp, where: [is_going: true]
+
+    Repo.all(query)
+    |> length
+  end
+
+  def counts(:cancel) do
+    query = from rsvp in Rsvp, where: [is_going: false]
+
+    Repo.all(query)
+    |> length
+  end
+
+  def event_counts(:rsvp, event_id) do
+    query = from rsvp in Rsvp, where: [is_going: true, event_id: ^event_id]
+
+    Repo.all(query)
+    |> length
+  end
+
+  def event_counts(:cancel, event_id) do
+    query = from rsvp in Rsvp, where: [is_going: false, event_id: ^event_id]
+
+    Repo.all(query)
+    |> length
+  end
+
+  def confirm(rsvp_id) do
+    query = from rsvp in Rsvp, where: [id: ^id, is_going: true]
+    rsvp = Repo.get(query)
+
+    if rsvp do
+      rsvp
+      |> Rsvp.changeset(%{is_confirmed: true, is_cancelled: false})
+      |> Repo.update!()
+
+      {:ok}
+    else
+      {:error, "No user RSVP for the selected Event"}
+    end
+  end
+
+  def remove(rsvp_id) do
+    query = from rsvp in Rsvp, where: [id: ^id, is_confirmed: true]
+    rsvp = Repo.get(query)
+
+    if rsvp do
+      rsvp
+      |> Rsvp.changeset(%{is_cancelled: true, is_confirmed: false})
+      |> Repo.update!()
+
+      {:ok}
+    else
+      {:error, "No user RSVP for the selected Event"}
+    end
   end
 end
